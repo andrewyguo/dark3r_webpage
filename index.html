@@ -28,6 +28,55 @@
   <script src="./website/website_files/index.js.download"></script>
 
   <style>
+    /* Dark Mode - Global Styles */
+    body {
+      background-color: #1a1a1a !important;
+      color: #e0e0e0 !important;
+    }
+
+    .hero {
+      background-color: #1a1a1a !important;
+    }
+
+    .section {
+      background-color: #1a1a1a !important;
+      color: #e0e0e0 !important;
+    }
+
+    /* Text colors for dark mode */
+    .title, h1, h2, h3, h4, h5, h6 {
+      color: #e0e0e0 !important;
+    }
+
+    .content, p {
+      color: #e0e0e0 !important;
+    }
+
+    /* Tabs styling for dark mode */
+    .tabs ul {
+      border-bottom-color: #404040 !important;
+    }
+
+    .tabs a {
+      color: #b0b0b0 !important;
+      border-bottom-color: #404040 !important;
+    }
+
+    .tabs li.is-active a {
+      color: #e0e0e0 !important;
+      border-bottom-color: #e0e0e0 !important;
+    }
+
+    .tabs a:hover {
+      color: #e0e0e0 !important;
+      border-bottom-color: #606060 !important;
+    }
+
+    /* HR styling for dark mode */
+    hr {
+      background-color: #404040 !important;
+    }
+
     /* Apply Noto Sans globally */
     body, button, input, select, textarea, h1, h2, h3, h4, h5, h6, .title, .subtitle, .content {
       font-family: 'Noto Sans', sans-serif !important;
@@ -63,7 +112,7 @@
     video {
       width: 100%;
       border-radius: 5px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
       margin-top: 1rem;
     }
 
@@ -78,6 +127,35 @@
       width: 60% !important;
       margin: 0 auto; /* Ensure it is centered */
     }
+
+    /* Button styling - dark buttons */
+    .button.is-dark {
+      background-color: #2d2d2d !important;
+      border-color: #404040 !important;
+      color: #e0e0e0 !important;
+    }
+
+    .button.is-dark:hover {
+      background-color: #3d3d3d !important;
+      border-color: #505050 !important;
+      color: #ffffff !important;
+    }
+
+    .button.is-dark[disabled] {
+      opacity: 0.5 !important;
+      cursor: not-allowed !important;
+      pointer-events: none !important;
+    }
+
+    /* Author links for dark mode */
+    .publication-authors a {
+      color: #6bb6ff !important;
+    }
+
+    .publication-authors a:hover {
+      color: #8cc8ff !important;
+      text-decoration: underline !important;
+    }
   </style>
 </head>
 
@@ -90,6 +168,74 @@
         <div class="columns is-centered">
           <div class="column has-text-centered">
             <h2 class="title is-2 publication-title"><b>Dark3R: Learning Structure from Motion in the Dark</b></h2>
+            
+            <!-- Authors -->
+            <div class="content is-size-5 publication-authors" style="margin-top: 1.5rem;">
+              <span class="author-block">
+                <a href="https://andrewguo.com/">Andrew Y. Guo</a><sup>1,2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://anaghmalik.com/">Anagh Malik</a><sup>1,2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://sites.google.com/view/tedlasai/">SaiKiran Tedla</a><sup>3</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://dongdong93.github.io/">Yutong Dai</a><sup>4</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://ca.linkedin.com/in/yiqian22">Yiqian Qin</a><sup>1,2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://zachsalehe.github.io/">Zach Salehe</a><sup>5</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://benattal.github.io/">Benjamin Attal</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://sotirisnousias.com/">Sotiris Nousias</a><sup>1,6</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://www.cs.toronto.edu/~kyros/">Kiriakos N. Kutulakos</a><sup>1,2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://davidlindell.com/">David B. Lindell</a><sup>1,2</sup>
+              </span>
+            </div>
+
+            <!-- Affiliations -->
+            <div class="content is-size-6" style="margin-top: 1rem;">
+              <p>
+                <sup>1</sup>University of Toronto &nbsp;&nbsp;
+                <sup>2</sup>Vector Institute &nbsp;&nbsp;
+                <sup>3</sup>York University<br>
+                <sup>4</sup>Sony Corporation of America &nbsp;&nbsp;
+                <sup>5</sup>Harvard University &nbsp;&nbsp;
+                <sup>6</sup>Purdue University
+              </p>
+            </div>
+
+            <!-- Links: Paper, Code, Dataset -->
+            <div class="content link-block has-text-centered" style="margin-top: 1.5rem;">
+              <a class="button is-dark is-medium" href="https://drive.google.com/file/d/1mtECzsspqdgl_32MM_PJpgL2k9aHgw-d/view?usp=sharing" target="_blank" style="margin-right: 1rem;">
+                <span class="icon">
+                  <i class="fas fa-file-pdf"></i>
+                </span>
+                <span>Paper</span>
+              </a>
+              <span class="button is-dark is-medium" style="margin-right: 1rem; opacity: 0.6; cursor: not-allowed; pointer-events: none;">
+                <span class="icon">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>Code (Coming Soon)</span>
+              </span>
+              <span class="button is-dark is-medium" style="opacity: 0.6; cursor: not-allowed; pointer-events: none;">
+                <span class="icon">
+                  <i class="fas fa-database"></i>
+                </span>
+                <span>Dataset (Coming Soon)</span>
+              </span>
+            </div>
             <br>
           </div>
         </div>
