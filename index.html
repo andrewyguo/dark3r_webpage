@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Dark3R">
+  <meta name="keywords" content="NeRF, Inverse Rendering, Low Light">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dark3R</title>
+
+  <!-- Google Fonts: Noto Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link href="./website/website_files/css" rel="stylesheet">
+  <link rel="stylesheet" href="./website/website_files/bulma.min.css">
+  <link rel="stylesheet" href="./website/website_files/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./website/website_files/bulma-slider.min.css">
+  <link rel="stylesheet" href="./website/website_files/fontawesome.all.min.css">
+  <link rel="stylesheet" href="./website/website_files/academicons.min.css">
+  <link rel="stylesheet" href="./website/website_files/index.css">
+
+  <script src="./website/website_files/jquery.min.js.download"></script>
+  <script src="./website/website_files/fontawesome.all.min.js.download"></script>
+  <script src="./website/website_files/bulma-carousel.min.js.download"></script>
+  <script src="./website/website_files/bulma-slider.min.js.download"></script>
+  <script src="./website/website_files/index.js.download"></script>
+
+  <style>
+    /* Apply Noto Sans globally */
+    body, button, input, select, textarea, h1, h2, h3, h4, h5, h6, .title, .subtitle, .content {
+      font-family: 'Noto Sans', sans-serif !important;
+    }
+    
+    /* Custom Tab Styling */
+    .tabs-widget {
+      margin-bottom: 2rem;
+    }
+    
+    .tabs li {
+      cursor: pointer;
+    }
+
+    /* Hide content by default */
+    .tab-content {
+      display: none;
+      animation: fadeEffect 0.5s;
+    }
+    
+    /* Show active content */
+    .tab-content.is-active {
+      display: block;
+    }
+    
+    /* Fade in animation */
+    @keyframes fadeEffect {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    /* Video styling */
+    video {
+      width: 100%;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin-top: 1rem;
+    }
+
+    /* Custom wider container */
+    .container.is-custom-wide {
+      max-width: 85% !important; /* Takes up 85% of the screen width */
+      width: 85% !important;
+      margin: 0 auto; /* Ensure it is centered */
+    }
+    .container.is-custom-wide-2 {
+      max-width: 60% !important; /* Takes up 90% of the screen width */
+      width: 60% !important;
+      margin: 0 auto; /* Ensure it is centered */
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Hero Header -->
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h2 class="title is-2 publication-title"><b>Dark3R: Learning Structure from Motion in the Dark</b></h2>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SECTION 1: Camera Pose / Point Cloud Recovery -->
+  <!-- ============================================ -->
+  <section class="section">
+    <div class="container is-custom-wide">
+      
+      <div class="content has-text-justified">
+        <p>
+          Given noisy raw input images, our method recovers camera pose and depth maps, which we then use for dense neural reconstruction. 
+          <br><br>
+          Please use the tabs below to toggle between different exposure times, which correspond to different signal-to-noise ratios. 
+        </p>
+      </div>
+
+      <div class="content">
+        <div class="tabs-widget">
+          
+          <!-- Tab Headers -->
+          <div class="tabs is-centered">
+            <ul class="is-marginless">
+              <li class="is-active" data-tab="s1_00800"><a>1/800s</a></li>
+              <li data-tab="s1_02000"><a>1/2000s</a></li>
+              <li data-tab="s1_03200"><a>1/3200s</a></li>
+            </ul>
+          </div>
+
+          <!-- Tab Content Area -->
+          <div class="tabs-content has-text-centered">
+            
+            <div id="s1_00800" class="tab-content is-active">
+              <video controls muted preload playsinline autoplay loop>
+                <source src="./website/videos_compressed/teaser/collated_00800.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+            <div id="s1_02000" class="tab-content">
+              <video controls muted preload playsinline autoplay loop>
+                <source src="./website/videos_compressed/teaser/collated_02000.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+            <div id="s1_03200" class="tab-content">
+              <video controls muted preload playsinline autoplay loop>
+                <source src="./website/videos_compressed/teaser/collated_03200.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- SECTION 2: Depth Maps (NEW)                  -->
+  <!-- ============================================ -->
+  <section class="section">
+    <div class="container is-custom-wide">
+
+      <h2 class="title is-3">Recovered Depth Maps</h2>
+
+      <div class="content has-text-justified">
+        <p>
+          Our method recovers accurate camera poses and high-quality point clouds even in extremely low-light conditions. 
+          Below, we visualize the estimated point clouds for various scenes compared against baseline methods.
+        </p>
+      </div>
+
+      <div class="content">
+        <div class="tabs-widget">
+          
+          <!-- Tab Headers -->
+          <div class="tabs is-centered">
+            <ul class="is-marginless">
+              <li class="is-active" data-tab="depth-bc040"><a>Chapel</a></li>
+              <li data-tab="depth-bc053"><a>Arch</a></li>
+              <li data-tab="depth-bc060"><a>Statue</a></li>
+              <li data-tab="depth-bc061"><a>Fireplace</a></li>
+              <li data-tab="depth-bc083"><a>Kitchen</a></li>
+            </ul>
+          </div>
+
+          <!-- Tab Content Area -->
+          <div class="tabs-content has-text-centered">
+            
+            <div id="depth-bc040" class="tab-content is-active">
+              <video controls muted preload playsinline autoplay loop>
+                <source src="./website/videos_compressed/point_clouds/bc040_pointclouds.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+            <div id="depth-bc053" class="tab-content">
+              <video controls muted preload playsinline autoplay loop>
+                <source src="./website/videos_compressed/point_clouds/bc053_pointclouds.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+            <div id="depth-bc060" class="tab-content">
+              <video controls muted preload playsinline autoplay loop>
+                <source src="./website/videos_compressed/point_clouds/bc060_pointclouds.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+            <div id="depth-bc061" class="tab-content">
+              <video controls muted preload playsinline autoplay loop>
+                <source src="./website/videos_compressed/point_clouds/bc061_pointclouds.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+            <div id="depth-bc083" class="tab-content">
+              <video controls muted preload playsinline autoplay loop>
+                <source src="./website/videos_compressed/point_clouds/bc083_pointclouds.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- SECTION 3: Neural Reconstruction Comparisons -->
+  <!-- ============================================ -->
+  <section class="section">
+    <div class="container is-custom-wide">
+
+      <h2 class="title is-3">Neural Reconstruction</h2>
+
+      <div class="content has-text-justified">
+        <p>
+          Below, we showcase neural reconstruction results on low-light images. 
+          The videos visualize the input view, the reference novel view synthesis (NVS) and depth, followed by a comparison of <b>Dark3R</b> against <b>Dark3RNeRF + MASt3RSfM</b>, <b>RawNeRF</b>, and <b>LE3D</b>.
+          <br><br>
+          Please use the tabs below to toggle between the different scenes. Results are best viewed on a desktop. 
+        </p>
+      </div>
+
+      <div class="content">
+        <div class="tabs-widget">
+          
+          <!-- Tab Headers -->
+          <div class="tabs is-centered">
+            <ul class="is-marginless">
+              <li class="is-active" data-tab="recon-bc040"><a>Chapel</a></li>
+              <li data-tab="recon-bc053"><a>Arch</a></li>
+              <li data-tab="recon-bc060"><a>Statue</a></li>
+              <li data-tab="recon-bc061"><a>Fireplace</a></li>
+              <li data-tab="recon-bc083"><a>Kitchen</a></li>
+            </ul>
+          </div>
+
+          <!-- Tab Content Area -->
+          <div class="tabs-content has-text-centered">
+            
+            <div id="recon-bc040" class="tab-content is-active">
+              <video controls muted preload playsinline autoplay loop>
+                <source src="./website/videos_compressed/nerf/bc040.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+            <div id="recon-bc053" class="tab-content">
+              <video controls muted preload playsinline autoplay loop>
+                <source src="./website/videos_compressed/nerf/bc053.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+            <div id="recon-bc060" class="tab-content">
+              <video controls muted preload playsinline autoplay loop>
+                <source src="./website/videos_compressed/nerf/bc060.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+            <div id="recon-bc061" class="tab-content">
+              <video controls muted preload playsinline autoplay loop>
+                <source src="./website/videos_compressed/nerf/bc061.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+            <div id="recon-bc083" class="tab-content">
+              <video controls muted preload playsinline autoplay loop>
+                <source src="./website/videos_compressed/nerf/bc083.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ============================================ -->
+  <!-- SECTION 4: High Dynamic Range (HDR) (NEW)    -->
+  <!-- ============================================ -->
+  <section class="section">
+    <div class="container is-custom-wide">
+
+      <h2 class="title is-3">High Dynamic Range (HDR) Imaging</h2>
+
+      <div class="content has-text-justified">
+        <p>
+          Our pipeline allows for the reconstruction of High Dynamic Range (HDR) radiance fields from noisy raw input images. 
+        </p>
+      </div>
+
+      <div class="content is-custom-wide-2">
+        <div class="tabs-widget">
+          
+          <!-- Tab Headers (Assuming multiple examples, or single) -->
+
+
+          <!-- Tab Content Area -->
+          <div class="tabs-content has-text-centered">
+            
+            <div id="hdr-example1" class="tab-content is-active">
+              <video controls muted preload playsinline autoplay loop>
+                <!-- Placeholder path based on your previous file structure -->
+                <source src="./website/videos_compressed/hdr/collated_hdr_sdr.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <hr>
+  
+  <!-- Scoped JavaScript for Tab Switching -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Find all tab widgets on the page
+      const widgets = document.querySelectorAll('.tabs-widget');
+
+      widgets.forEach(widget => {
+        // Find tabs and content ONLY within this specific widget
+        const tabs = widget.querySelectorAll('.tabs li');
+        const contents = widget.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            // 1. Deactivate all tabs in THIS widget only
+            tabs.forEach(t => t.classList.remove('is-active'));
+            
+            // 2. Hide all contents in THIS widget and pause videos
+            contents.forEach(content => {
+              content.classList.remove('is-active');
+              const video = content.querySelector('video');
+              if (video) {
+                video.pause();
+              }
+            });
+
+            // 3. Activate clicked tab
+            tab.classList.add('is-active');
+
+            // 4. Show corresponding content (by ID)
+            const targetId = tab.getAttribute('data-tab');
+            const targetContent = document.getElementById(targetId);
+            
+            if (targetContent) {
+              targetContent.classList.add('is-active');
+              
+              // Auto-play video
+              const activeVideo = targetContent.querySelector('video');
+              if (activeVideo) {
+                activeVideo.currentTime = 0;
+                activeVideo.play();
+              }
+            }
+          });
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
